@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трехуровневое выпадающее меню</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .content {
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .menu-container {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions {
+            flex: 1;
+            min-width: 300px;
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        /* Стили для меню */
+        .menu {
+            list-style: none;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item {
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-link:hover {
+            background-color: #f0f5ff;
+            color: #2563eb;
+        }
+        
+        .menu-link.has-submenu::after {
+            content: "›";
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-link.has-submenu.active::after {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            list-style: none;
+            background: #f8f9fa;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .submenu.active {
+            max-height: 500px;
+        }
+        
+        .submenu .menu-link {
+            padding-left: 40px;
+        }
+        
+        .submenu .submenu .menu-link {
+            padding-left: 60px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Трехуровневое выпадающее меню</h1>
+            <p class="description">Интерактивное меню с тремя уровнями вложенности, которое открывается по клику. Реализовано на чистом JavaScript.</p>
+        </header>
+        
+        <div class="content">
+            <div class="menu-container">
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a href="#" class="menu-link has-submenu">Главная</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link has-submenu">Продукты</a>
+                        <ul class="submenu">
+                            <li class="menu-item">
+                                <a href="#" class="menu-link has-submenu">Ноутбуки</a>
+                                <ul class="submenu">
+                                    <li class="menu-item"><a href="#" class="menu-link">Игровые</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-link">Ультрабуки</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-link">Для работы</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link has-submenu">Смартфоны</a>
+                                <ul class="submenu">
+                                    <li class="menu-item"><a href="#" class="menu-link">Android</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-link">iOS</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-link">Другие</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="#" class="menu-link">Аксессуары</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link has-submenu">Услуги</a>
+                        <ul class="submenu">
+                            <li class="menu-item"><a href="#" class="menu-link">Дизайн</a></li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link has-submenu">Разработка</a>
+                                <ul class="submenu">
+                                    <li class="menu-item"><a href="#" class="menu-link">Веб-сайты</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-link">Мобильные приложения</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="#" class="menu-link">Поддержка</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link has-submenu">О компании</a>
+                        <ul class="submenu">
+                            <li class="menu-item"><a href="#" class="menu-link">История</a></li>
+                            <li class="menu-item"><a href="#" class="menu-link">Команда</a></li>
+                            <li class="menu-item"><a href="#" class="menu-link">Вакансии</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="instructions">
+                <h2>Инструкция по использованию меню</h2>
+                <ol>
+                    <li>Меню открывается по клику на пункте с треугольником</li>
+                    <li>Подменю может содержать вложенные подменю (до 3 уровней)</li>
+                    <li>При клике на пункте меню без подменю происходит переход по ссылке</li>
+                    <li>Для закрытия меню кликните повторно на пункт или на другой элемент меню</li>
+                    <li>Меню адаптировано для мобильных устройств</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем все элементы меню с подменю
+            const menuItemsWithSubmenu = document.querySelectorAll('.menu-link.has-submenu');
+            
+            // Добавляем обработчик клика для каждого элемента
+            menuItemsWithSubmenu.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Находим родительский элемент
+                    const parentItem = this.parentElement;
+                    
+                    // Находим подменю
+                    const submenu = parentItem.querySelector('.submenu');
+                    
+                    // Закрываем все другие открытые подменю на том же уровне
+                    const allSubmenus = document.querySelectorAll('.submenu.active');
+                    allSubmenus.forEach(menu => {
+                        if (menu !== submenu && !menu.contains(submenu)) {
+                            menu.classList.remove('active');
+                            menu.previousElementSibling.classList.remove('active');
+                        }
+                    });
+                    
+                    // Переключаем видимость текущего подменю
+                    if (submenu) {
+                        submenu.classList.toggle('active');
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Закрываем меню при клике вне его области
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.menu')) {
+                    const activeMenus = document.querySelectorAll('.submenu.active, .menu-link.active');
+                    activeMenus.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
